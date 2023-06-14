@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-dark" th:fragment="header">
+    <a class="navbar-brand" href="#">Steam Stats</a>
+    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <a class="nav-link link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+        <div th:if="${session.LoggedUser!=null}">
+            <a class="nav-link link" th:href="@{/friends}" th:text="#{Friends}">Friends</a>
+            <a class="nav-link link" th:href="@{/user/}+${session.LoggedUser.getSteamId()}+${'/achievments'}"
+               th:text="#{Achievments}">Achievments</a>
+            <a class="nav-link link" th:href="@{/user/}+${session.LoggedUser.getSteamId()}+${'/games'}"
+               th:text="#{Your_Games}">Your games</a>
+        </div>
+        <a class="nav-link" href="?lang=en">en</a>
+        <a class="nav-link" href="?lang=ru">ru</a>
+    </div>
+    <div th:if="${session.LoggedUser==null}">
+        <a th:href="@{/openid}">
+            <img src=https://community.cloudflare.steamstatic.com/public/images/signinthroughsteam/sits_02.png>
+        </a>
+    </div>
+    <div th:if="${session.LoggedUser!=null}">
+        <a th:href="@{/user/}+${session.LoggedUser.getSteamId()}">
+            <span class="link" th:text="${session.LoggedUser.getNickname()}"></span>
+            <img alt="alt" th:src="${session.LoggedUser.getAvatarUrl()}"/>
+        </a>
+        <a class="link" th:href="@{/openid/logout}" th:text="#{Logout}">
+            logout
+        </a>
+    </div>
+</nav>
+</body>
+</html>

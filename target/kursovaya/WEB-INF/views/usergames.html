@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" 
+      xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Book manager</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"/>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+        <link rel="stylesheet" th:href="@{/resources/css/style.css}"/>
+    </head>
+    <body>
+        <div th:replace="../views/header :: header"></div>
+        <div class="container row gx-6">
+            <h2 th:text="${User.getNickname()}"></h2>
+            <img height="32px" width="32px" th:src="${User.getAvatarUrl()}">
+        </div>
+        <h1 th:text="#{Games}">Games</h1>
+        <div class="row justify-content-around">
+            <div class=" col-6 ">
+            <ul >
+                <div class="row gy-5">
+                <li class="elem col-4 " th:each="game:${Games}">
+                    <a  th:href="@{/game/}+${game.getAppid()}"  >
+                    <h4 class="link" th:text="${game.name}"></h4>
+                    <img th:src="${game.getImageUrl()}" alt="game_icon"/>
+                    </a>
+                </li>
+                    </div>
+            </ul>
+            </div>
+            <div class=" col-6 ">
+                <a th:if="${session.LoggedUser.getSteamId()==User.getSteamId()}" th:href="@{/game/add}" th:text="AddGame" class="link"></a>
+            <ul class=" col-5">
+                <p th:text="#{User_Games}">User Games</p>
+                <div class="row">
+                <li class="list-group-item" th:each="game:${UserGames}">
+                    <h4 th:text="${game.name}"></h4>
+                    <a th:href="@{/game/delete(id=${game.getId()})}" th:text="${'&#x274C;'}"></a>
+                    <img th:src="${game.getLoadedImagePath()}" alt="game_icon" width="80" height="80"/>
+                    
+                </li>
+            </ul>
+                </div>
+                </div>
+        </div>
+    </body>
+</html>

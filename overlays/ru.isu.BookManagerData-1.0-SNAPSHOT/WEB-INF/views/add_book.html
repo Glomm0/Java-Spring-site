@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" 
+      xmlns = "http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Book manager</title>
+
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+
+
+</head>
+<body>
+
+<div th:replace="../views/header :: header"></div>
+
+<div class="container">
+    <h2 class="text-info" th:text="#{label.addbook}">Add new book</h2>
+    <form action="#" method="post"
+          th:object="${book}" th:action="@{/books/add}">
+        
+        <div class="form-group">
+            <label for="book-title" th:text="#{book.bookTitle}">Title</label>
+            <input id="book-title" class="form-control"
+                   th:field="*{title}"/>
+            <!--Without localization-->    
+            <!--<span th:if="${#fields.hasErrors('title')}"
+                  class ="text-danger"
+                  th:errors ="${book.title}"></span>-->
+
+            <!--With localization-->
+            <span th:if="${#fields.hasErrors('title')}">
+            <span th:each="err: ${#fields.errors('title')}" th:text="#{${err}}"
+               class="text-danger"></span></span>
+        </div>
+        
+        <div class="form-group">
+            <label for="book-pubdate">Publication date</label>
+            <input id="book-pubdate"
+                   class="form-control"
+                   th:field="${book.pubDate}"
+                   type="date"/>
+            <span th:if="${#fields.hasErrors('pubDate')}" th:errors="${book.pubDate}"
+                  class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label for="book-year">Year</label>
+            <input id="book-year" type="number"
+                   class="form-control"
+                   th:field="*{year}"/>
+            <span th:if="${#fields.hasErrors('year')}" th:errors="${book.year}"
+                  class="text-danger"></span>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+body,elem{
+    background-color:white;
+}
+span,h1,h2,h3,p{
+    color: #EDF2F4;
+}
+.link,a{
+    color:#8D99AE;
+}
+.highlight{
+    background-color:#000000;
+}
