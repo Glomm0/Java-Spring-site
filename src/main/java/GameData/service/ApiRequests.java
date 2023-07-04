@@ -37,7 +37,7 @@ public class ApiRequests {
     GameService gameService;
     private String ApiKey;
     public ApiRequests() {
-        ApiKey="DA4FCABC417880E454B912AA115BAE92";
+        ApiKey="******";
     }
     public boolean doneFetchingAll=false;
     private static String getStringFromInputStream(InputStream is) {
